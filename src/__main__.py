@@ -391,7 +391,7 @@ def main():
                     "• *Nasıl Kullanılır:* Bot'un çalışma durumunu kontrol edin.\n\n"
                     
                     "💡 *İpuçları:*\n"
-                    "• Tüm komutlar için `/help` yazabilirsiniz (yakında)\n"
+                    "• Tüm komutlar için `/help` yazabilirsiniz\n"
                     "• Challenge'lar için takım çalışması ve öğrenme odaklıdır\n"
                     "• Yardım ve kahve kanalları otomatik kapanır, özetler DM'inize gelir\n"
                     "• Bilgi küpü sadece Türkçe cevap verir\n\n"

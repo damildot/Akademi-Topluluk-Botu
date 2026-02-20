@@ -144,6 +144,65 @@ def setup_help_handlers(
         
         asyncio.run(process_join_channel())
     
+    @app.command("/help")
+    def handle_help_command(ack, body):
+        """Tüm mevcut komutları kategorize ederek gösterir."""
+        ack()
+        user_id = body["user_id"]
+        channel_id = body["channel_id"]
+        
+        logger.info(f"[>] /help komutu kullanıldı | Kullanıcı: {user_id} | Kanal: {channel_id}")
+        
+        help_text = (
+            "🤖 *Cemil Bot - Komut Rehberi*\n\n"
+            
+            "👥 *Sosyal & Etkileşim*\n"
+            "• `/kahve` - Rastgele bir topluluk üyesiyle kahve sohbeti eşleşmesi\n"
+            "• `/yardim-iste` - Topluluktan teknik yardım iste (otomatik kanal oluşturur)\n"
+            "• `/oylama` - Topluluk oylaması başlat\n"
+            "• `/daily` - Günlük topluluk sorusu gönder (Admin)\n\n"
+            
+            "🎓 *Eğitim & Öğrenme*\n"
+            "• `/sor` - Bilgi Küpü'ne soru sor (RAG destekli Türkçe AI)\n"
+            "• `/cemil-indeksle` - Bilgi Küpü'ne yeni döküman indeksle (Admin)\n\n"
+            
+            "🏆 *Challenge Sistemi*\n"
+            "• `/challenge start <takım_sayısı>` - Yeni challenge başlat (Admin)\n"
+            "• `/challenge join [challenge_id]` - Challenge'a katıl\n"
+            "• `/challenge status` - Aktif challenge durumunu görüntüle\n"
+            "• `/challenge bitir` - Challenge'ı tamamla ve değerlendirme başlat\n"
+            "• `/challenge register` - Mevcut kanalı challenge olarak kaydet\n"
+            "• `/challenge set True/False` - Değerlendirmede oy ver\n"
+            "• `/challenge set github <link>` - Değerlendirmede GitHub repo ekle\n"
+            "• `/challenge force [success|fail]` - Değerlendirmeyi zorla bitir (Admin)\n\n"
+            
+            "👤 *Profil & Geri Bildirim*\n"
+            "• `/profilim` - Sistemdeki bilgilerinizi görüntüle\n"
+            "• `/geri-bildirim` - Bot hakkında geri bildirim paylaş\n\n"
+            
+            "📊 *Yönetim & İstatistik* (Admin)\n"
+            "• `/admin-istatistik` - Bot kullanım istatistikleri\n"
+            "• `/admin-basarili-projeler` - Başarılı challenge projelerini listele\n\n"
+            
+            "🏥 *Sistem*\n"
+            "• `/cemil-health` - Bot sağlık kontrolü\n\n"
+            
+            "💡 *İpuçları:*\n"
+            "• Challenge'lar takım çalışması ve öğrenme odaklıdır\n"
+            "• Yardım ve kahve kanalları otomatik kapanır, özetler DM'inize gelir\n"
+            "• Bilgi Küpü sadece Türkçe cevap verir\n\n"
+            
+            "Sorularınız için bana `/geri-bildirim` ile ulaşabilirsiniz! 🚀"
+        )
+        
+        chat_manager.post_ephemeral(
+            channel=channel_id,
+            user=user_id,
+            text=help_text
+        )
+        
+        logger.info(f"[+] /help komutu başarıyla işlendi | Kullanıcı: {user_id}")
+    
     @app.action("help_details")
     def handle_help_details(ack, body):
         """'Detaylar' butonuna tıklama."""
